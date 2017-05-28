@@ -6,4 +6,4 @@ Analyze the url given in this script. Write the audio files' name and urls in [d
 * [download.bat](download.bat)<br>
 Download the audio files listed in download-list.txt with the help of [aria2c](aria2c.exe).
 * [run.bat](run.bat)<br>
-Run the [analyze.bat](analyze.bat), and the run the [download.bat](download.bat).
+Run [analyze.bat](analyze.bat), and then run [download.bat](download.bat).
