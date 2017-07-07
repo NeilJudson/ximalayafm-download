@@ -49,7 +49,7 @@ class ximalaya:
 		else:
 			return [self.url]
 
-	def analyze(self, trackid):
+	def analyze(self, trackid, seq):
 		'''解析真实mp3地址'''
 		trackurl = 'http://www.ximalaya.com/tracks/%s.json' % trackid
 		try:
@@ -65,7 +65,10 @@ class ximalaya:
 			mp3 = (jsonobj['play_path']).encode('gbk')
 			filename = title.strip() + '.mp3'
 			rec = re.compile(r'[ ;:]')
-			filename_format = (rec.sub('',filename)).encode('gbk')                               # 去除空格、分号等 
+			if seq == 0:
+				filename_format = (rec.sub('',filename)).encode('gbk')                          # 去除空格、分号等
+			else:
+				filename_format = (str(seq) + '.' + rec.sub('',filename)).encode('gbk')         # 去除空格、分号等
 			print(filename_format + ', ' + mp3)
 			with open('download-list.txt', 'a+') as mp3file:
 				mp3file.write('%s|%s\n' % (filename_format, mp3))
@@ -75,7 +78,7 @@ class ximalaya:
 		'''生成待下载的文件列表'''
 		if 'sound' in self.url:                                 # 解析单条mp3
 			trackid = self.url[self.url.rfind('/') + 1:]
-			return self.analyze(trackid)
+			return self.analyze(trackid, 0)
 		else:
 			for purl in self.getpage():                         # 解析每个专辑页面中的所有mp3地址
 				try:
@@ -87,8 +90,10 @@ class ximalaya:
 					ids_reg = re.compile(r'sound_ids="(.+?)"')
 					ids_res = ids_reg.findall(response)
 					idslist = [j for j in ids_res[0].split(',')]
+					seq = 0
 					for trackid in idslist:
-						if self.analyze(trackid) == FAIL:
+						seq = seq + 1
+						if self.analyze(trackid, seq) == FAIL:
 							return FAIL
 					return SUCCESS
 
