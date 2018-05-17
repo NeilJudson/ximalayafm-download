@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Version: Python 3.6.0
+
 
 import requests
 import json
