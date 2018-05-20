@@ -59,7 +59,7 @@ class Ximalaya:
 		try:
 			response = requests.get(trackUrl, headers=self.urlheader).text
 		except Exception:
-			print(trackUrl + '解析失败!')
+			print(trackUrl + u'解析失败!')
 			with open('analyze-false.txt', 'ab+') as falseAnalyze:
 				falseAnalyze.write(trackUrl + '\n')
 			return FAIL
@@ -77,16 +77,16 @@ class Ximalaya:
 	
 	def formatSeq(self, seq):
 		if seq == 0:
-			print seq
+			print(seq)
 			return ''
 		elif 0 < seq < 10:
-			print seq
+			print(seq)
 			return ('00' + str(seq) + '.')
 		elif 9 < seq < 100:
-			print seq
+			print(seq)
 			return ('0' + str(seq) + '.')
 		else:
-			print seq
+			print(seq)
 			return (str(seq) + '.')
 	
 	def getPage(self):
