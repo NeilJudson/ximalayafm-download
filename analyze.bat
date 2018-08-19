@@ -1,1 +1,1 @@
-python ximalayafm-analyze.py %1
+py -3 ximalayafm_analyze.py %1
