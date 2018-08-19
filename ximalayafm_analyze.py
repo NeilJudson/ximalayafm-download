@@ -1,4 +1,4 @@
-#
+# Python 3.6.3
 
 import requests
 import json
@@ -47,8 +47,8 @@ class Ximalaya:
                     print(u'分页请求失败!', msg)
                     return FAIL
                 if response:
-                    with open('download_list.html', 'w', encoding='utf-8') as f:
-                        f.write(response)
+                    # with open('.\web_backup\download_list.html', 'w', encoding='utf-8') as f:
+                    #     f.write(response)
                     ids_reg = re.compile(r'<div class="dOi2 text"><a title=".+?" href="(.+?)">')
                     ids_res = ids_reg.findall(response)
                     ids_list = [j[j.rfind('/') + 1:] for j in ids_res]
@@ -83,7 +83,7 @@ class Ximalaya:
             title = jsonobj['data']['tracksForAudioPlay'][0]['trackName']
             file_url = jsonobj['data']['tracksForAudioPlay'][0]['src']
             file_name = title.strip() + '.m4a'
-            rec = re.compile(r'[ ;:]')
+            rec = re.compile(r'[ ;:|]')
             file_name_format = self.format_seq(seq) + rec.sub('', file_name)  # 去除空格、分号等
             print(file_name_format + ', ' + file_url)
             with open('download_list.txt', 'a+', encoding='gbk') as download_list_file:
@@ -119,8 +119,8 @@ class Ximalaya:
             print(u'网页打开出错,请检查!', msg)
             return []
         if response:
-            with open('get_page.html', 'w', encoding='utf-8') as f:
-                f.write(response)
+            # with open('.\web_backup\get_page.html', 'w', encoding='utf-8') as f:
+            #     f.write(response)
             reg_list = [re.compile(r'<li class="Yetd page-item.*?"><a class="Yetd page-link" href="(.+?)">')]
             for reg in reg_list:
                 page_list.extend(reg.findall(response))
