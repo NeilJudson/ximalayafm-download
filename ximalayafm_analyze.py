@@ -49,8 +49,9 @@ class Ximalaya:
                 if response:
                     # with open('.\web_backup\download_list.html', 'w', encoding='utf-8') as f:
                     #     f.write(response)
-                    ids_reg = re.compile(r'<div class="dOi2 text"><a title=".+?" href="(.+?)">')
+                    ids_reg = re.compile(r'<div class="text rC5T"><a title=".+?" href="(.+?)">')
                     ids_res = ids_reg.findall(response)
+                    # print(ids_res)
                     ids_list = [j[j.rfind('/') + 1:] for j in ids_res]
                     for track_id in ids_list:
                         seq += 1
@@ -121,7 +122,7 @@ class Ximalaya:
         if response:
             # with open('.\web_backup\get_page.html', 'w', encoding='utf-8') as f:
             #     f.write(response)
-            reg_list = [re.compile(r'<li class="Yetd page-item.*?"><a class="Yetd page-link" href="(.+?)">')]
+            reg_list = [re.compile(r'<li class="page-item.*?tthf"><a class="page-link tthf" href="(.+?)">')]
             for reg in reg_list:
                 page_list.extend(reg.findall(response))
             if page_list:
